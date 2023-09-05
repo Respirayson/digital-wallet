@@ -1,16 +1,18 @@
-import { View, Text, SafeAreaView } from 'react-native';
-import { COLORS } from '../constants/theme';
+import { createStackNavigator } from "@react-navigation/stack";
 
-import { Home } from '../screens';
+import Tabs from "../navigation/Tabs";
 
+const Stack = createStackNavigator();
 
 const App = () => {
+  return (
+    <Stack.Navigator screenOptions={{
+        headerShown: false
+    }} initialRouteName="Tabs">
 
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white}}>
-            <Home />
-        </SafeAreaView>
-    );
-}
+      <Stack.Screen name="Tabs" component={Tabs} />
+    </Stack.Navigator>
+  );
+};
 
 export default App;

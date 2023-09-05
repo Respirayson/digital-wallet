@@ -26,8 +26,38 @@ export const featuresData = [
     {
         id: 4,
         icon: icons.bill,
-        color: COLORS.yellow,
-        backgroundColor: COLORS.lightyellow,
+        color: COLORS.green,
+        backgroundColor: COLORS.lightGray,
         description: "My QR"
+    }
+]
+
+export const transactionData = [
+    {
+        id: 1,
+        type: "Transfer",
+        color: COLORS.red,
+        description: "Transfer to 6281234567890",
+        amount: "-$500.00",
+        date: "14 Sep 2021",
+        icon: "logo-usd",
+    },
+    {
+        id: 2,
+        type: "Transfer",
+        color: COLORS.red,
+        description: "Transfer to 6281234567890",
+        amount: "-$500.00",
+        date: "14 Sep 2021",
+        icon: "logo-usd",
+    },
+    {
+        id: 3,
+        type: "Top Up",
+        color: COLORS.green,
+        description: "Top Up from Bank",
+        amount: "+$500.00",
+        date: "14 Sep 2023",
+        icon: "cart-sharp"
     }
 ]

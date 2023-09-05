@@ -1,15 +1,15 @@
 export const COLORS = {
     // base colors
-    primary: "#24C16B", // green
-    secondary: "#0C381F",   // dark green
+    primary: "#5d62c6",
+    secondary: "#8182d2",
 
-    green: "#66D59A",
+    green: "#24C16B",
     lightGreen: "#E6FEF0",
 
     lime: "#00BA63",
     emerald: "#2BC978",
 
-    red: "#FF4134",
+    red: "#FF5963",
     lightRed: "#FFF1F0",
 
     purple: "#6B3CE9",

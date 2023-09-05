@@ -5,7 +5,13 @@
       "bundler": "metro"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow DigiWallet to use your camera"
+        }
+      ]
     ],
     "name": "client",
     "slug": "client"
