@@ -49,6 +49,7 @@ const Features = () => {
             keyExtractor={item => `${item.id}`}
             renderItem={renderItem}
             style={{ marginTop: SIZES.padding * 2 }}
+            scrollEnabled={false}
         />
     )
 }

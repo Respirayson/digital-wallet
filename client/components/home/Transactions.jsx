@@ -115,6 +115,7 @@ const Transactions = ({ transactions }) => {
         keyExtractor={(item) => `${item.id}`}
         renderItem={renderTransaction}
         showsVerticalScrollIndicator={false}
+        scrollEnabled={false}
         contentContainerStyle={{
           paddingBottom: 30,
         }}
