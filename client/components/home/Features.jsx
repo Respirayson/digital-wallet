@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
-import { SIZES, FONTS, COLORS } from '../../constants/theme'
+import { SIZES, FONTS } from '../../constants/theme'
 import { featuresData } from '../../constants'
 
-const Features = () => {
+
+const Features = ({ navigation }) => {
     const Header = () => (
         <View style={{ marginBottom: SIZES.padding * 2 }}>
             <Text style={{ ...FONTS.h3 }}>Features</Text>
@@ -13,7 +14,7 @@ const Features = () => {
     const renderItem = ({ item }) => (
         <TouchableOpacity
             style={{ marginBottom: SIZES.padding * 2, width: 60, alignItems: 'center' }}
-            onPress={() => console.log(item.description)}
+            onPress={() => navigation.navigate(item.navigation)}
         >
             <View
                 style={{

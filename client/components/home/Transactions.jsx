@@ -35,7 +35,12 @@ const Transactions = ({ transactions }) => {
             alignItems: "center",
           }}
         >
-          <Ionicons name={item.icon} size={25} color="white" justifyContent="center" />
+          <Ionicons
+            name={item.icon}
+            size={25}
+            color="white"
+            justifyContent="center"
+          />
         </View>
         <View>
           <Text

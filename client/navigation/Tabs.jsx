@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/bottom-tabs";
 import Svg, { Path } from "react-native-svg";
 
-import { Home, Scan } from "../screens";
+import { Home, Scan, Profile } from "../screens";
 import { COLORS } from "../constants/theme";
 import icons from "../constants/icons";
 
@@ -137,7 +137,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="User"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image

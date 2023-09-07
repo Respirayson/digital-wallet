@@ -7,28 +7,32 @@ export const featuresData = [
         icon: icons.reload,
         color: COLORS.purple,
         backgroundColor: COLORS.lightpurple,
-        description: "Top Up"
+        description: "Top Up",
+        navigation: "TopUp"
     },
     {
         id: 2,
         icon: icons.send,
         color: COLORS.yellow,
         backgroundColor: COLORS.lightyellow,
-        description: "Pay via SMS"
+        description: "Pay via SMS",
+        navigation: "Payment"
     },
     {
         id: 3,
         icon: icons.wallet,
         color: COLORS.red,
         backgroundColor: COLORS.lightRed,
-        description: "History"
+        description: "History",
+        navigation: "History"
     },
     {
         id: 4,
         icon: icons.bill,
         color: COLORS.green,
         backgroundColor: COLORS.lightGray,
-        description: "My QR"
+        description: "My QR",
+        navigation: "MyQR"
     }
 ]
 

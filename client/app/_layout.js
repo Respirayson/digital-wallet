@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import Black from '../assets/fonts/Roboto-Black.ttf';
-import Bold from '../assets/fonts/Roboto-Bold.ttf';
-import Regular from '../assets/fonts/Roboto-Regular.ttf';
+import Medium from '../assets/fonts/OpenSans-Medium.ttf';
+import Bold from '../assets/fonts/OpenSans-Bold.ttf';
+import Regular from '../assets/fonts/OpenSans-Regular.ttf';
 import { useCallback } from 'react';
 
 SplashScreen.preventAutoHideAsync();
@@ -11,9 +11,9 @@ SplashScreen.preventAutoHideAsync();
 const Layout = () => {
 
     const [fontsLoaded] = useFonts({
-        "Roboto-Black" : Black,
-        "Roboto-Bold" : Bold,
-        "Roboto-Regular" : Regular,
+        "OpenSans-Medium" : Medium,
+        "OpenSans-Bold" : Bold,
+        "OpenSans-Regular" : Regular,
     })
 
     const onLayoutRootView = useCallback(async () => {
