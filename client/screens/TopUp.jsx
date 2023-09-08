@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, Image, Text } from "react-native";
+import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import { Image } from "expo-image"
 import { SIZES, COLORS, FONTS } from "../constants/theme";
 import icons from "../constants/icons";
 
@@ -39,11 +40,11 @@ const TopUp = ({ navigation }) => {
           paddingHorizontal: SIZES.padding,
         }}
       >
-
-        <View
-          style={{ flex: 1 }}
-        >
+        <View style={{ flex: 1 }}>
           <Text style={{ color: COLORS.white, ...FONTS.body1 }}>Add Money</Text>
+          <Text style={{ ...FONTS.body5, color: COLORS.white }}>
+            Fund your wallet with money
+          </Text>
         </View>
       </View>
     );
@@ -66,46 +67,42 @@ const TopUp = ({ navigation }) => {
           width: "100%",
           backgroundColor: COLORS.white,
           borderRadius: SIZES.radius / 2,
-          alignItems: "flex-start",
-          justifyContent: "center",
-          marginTop: SIZES.padding * 8,
+          alignItems: "center",
+          justifyContent: "flexstart",
+          marginTop: SIZES.padding * 4,
+          height: "auto",
+          padding: SIZES.padding * 3,
         }}
       >
         <TextInput
           style={{
-            marginVertical: SIZES.padding,
+            height: 60,
+            borderColor: "gray",
+            borderWidth: 1,
+            borderRadius: 10,
             width: "100%",
-            height: 50,
-            color: COLORS.black,
-            ...FONTS.body3,
-            fontSize: 24,
-            paddingRight: SIZES.padding * 2,
+            marginTop: SIZES.padding * 2,
+            paddingRight: SIZES.padding,
+            fontSize: 32,
           }}
+          keyboardType="numeric"
+          returnKeyType="done"
           placeholder="$0.00"
           placeholderTextColor={COLORS.black}
           selectionColor={COLORS.black}
-          keyboardType="number-pad"
           textAlign="right"
           value={amount}
           onChangeText={(text) => setAmount(text.replace(/[^0-9]/g, ""))}
         />
-      </View>
-      <View
-        style={{
-          width: "100%",
-          position: "absolute",
-          left: "9%",
-          bottom: "10%",
-        }}
-      >
         <TouchableOpacity
           style={{
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            padding: 15,
             borderRadius: 30,
+            height: 50,
             backgroundColor: COLORS.secondary,
+            marginTop: SIZES.padding * 2,
           }}
           onPress={() => console.log(amount)} // TODO: Replace with function that connects to stripe
         >

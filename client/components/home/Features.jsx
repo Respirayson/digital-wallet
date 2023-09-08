@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList } from 'react-native'
+import { Image } from "expo-image"
 import { SIZES, FONTS } from '../../constants/theme'
 import { featuresData } from '../../constants'
 
@@ -29,7 +30,7 @@ const Features = ({ navigation }) => {
             >
                 <Image
                     source={item.icon}
-                    resizeMode="contain"
+                    contentFit="contain"
                     style={{
                         height: 20,
                         width: 20,

@@ -64,3 +64,5 @@ export const FONTS = {
     body4: { fontFamily: "OpenSans-Regular", fontSize: SIZES.body4, lineHeight: 22 },
     body5: { fontFamily: "OpenSans-Regular", fontSize: SIZES.body5, lineHeight: 22 },
 };
+
+export const TWILIO_NUMBER = "+6584558231";

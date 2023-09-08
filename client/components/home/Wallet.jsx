@@ -1,7 +1,7 @@
 import React from "react";
 import wallet from "../../assets/wallet.jpg";
-import { ImageBackground, View } from "react-native";
-import { Text } from "react-native";
+import { ImageBackground } from "expo-image"
+import { Text, View } from "react-native";
 import { FONTS } from "../../constants/theme";
 
 const Wallet = ({ balance, phoneNumber }) => {

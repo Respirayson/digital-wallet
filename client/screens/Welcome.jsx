@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Image } from "expo-image"
 import { StatusBar } from "expo-status-bar";
 import { COLORS, FONTS } from "../constants/theme";
 import background from "../assets/shape.jpg";
@@ -7,7 +8,7 @@ import background from "../assets/shape.jpg";
 const Welcome = ({ navigation }) => {
   return (
     <>
-
+      <StatusBar style="auto" />
       <View
         style={{
           backgroundColor: "#f7f8fa",
@@ -22,7 +23,7 @@ const Welcome = ({ navigation }) => {
           style={{
             height: "100%",
             width: "100%",
-            resizeMode: "cover",
+            contentFit: "cover",
           }}
           source={background}
         ></Image>

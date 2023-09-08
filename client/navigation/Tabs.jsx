@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 import {
   createBottomTabNavigator,
   BottomTabBar,
 } from "@react-navigation/bottom-tabs";
 import Svg, { Path } from "react-native-svg";
+import { Image } from "expo-image"
 
 import { Home, Scan, Profile } from "../screens";
 import { COLORS } from "../constants/theme";

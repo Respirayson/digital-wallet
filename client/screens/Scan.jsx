@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Image } from "expo-image"
 import { Camera, CameraType } from "expo-camera";
 import { COLORS, FONTS, SIZES } from "../constants/theme";
 import icons from "../constants/icons";
@@ -93,7 +94,7 @@ const Scan = ({ navigation }) => {
       >
         <Image
           source={focus}
-          resizeMode="stretch"
+          contentFit="stretch"
           style={{
             marginTop: "-55%",
             width: 200,
@@ -134,7 +135,7 @@ const Scan = ({ navigation }) => {
               flexDirection: "row",
               alignItems: "center",
             }}
-            onPress={() => console.log("Phone Number")} // change to navigation to sms screen
+            onPress={() => navigation.navigate("Payment")}
           >
             <View
               style={{

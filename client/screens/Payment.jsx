@@ -1,12 +1,33 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
-import { SIZES, COLORS, FONTS } from "../constants/theme";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
+import { SIZES, COLORS, FONTS, TWILIO_NUMBER } from "../constants/theme";
+import { Image } from "expo-image"
 import icons from "../constants/icons";
+import * as SMS from "expo-sms";
 
 const Payment = ({ navigation }) => {
   const [amount, setAmount] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSmsAvailable, setIsSmsAvailable] = useState(false); // TODO: Replace with function that checks if SMS is available
+
+  const onComposeSms = useCallback(async () => {
+    if (isSmsAvailable) {
+      console.log("going for it!");
+      await SMS.sendSMSAsync(TWILIO_NUMBER, "This is my precomposed message!");
+    }
+  }, [isSmsAvailable]);
+
+  useEffect(() => {
+    SMS.isAvailableAsync().then((isAvailable) =>
+      setIsSmsAvailable(isAvailable)
+    );
+  }, []);
 
   function renderNavigator() {
     return (
@@ -37,13 +58,18 @@ const Payment = ({ navigation }) => {
     return (
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "column",
           paddingHorizontal: SIZES.padding * 3,
         }}
       >
         <View style={{ flex: 1, alignItems: "flex-start" }}>
-          <Text style={{ color: COLORS.white, ...FONTS.body1 }}>
+          <Text
+            style={{ color: COLORS.white, ...FONTS.h1, fontWeight: "bold" }}
+          >
             Send Money
+          </Text>
+          <Text style={{ ...FONTS.body5, color: COLORS.white }}>
+            SMS charges may apply.
           </Text>
         </View>
       </View>
@@ -55,13 +81,12 @@ const Payment = ({ navigation }) => {
       <View
         style={{
           position: "absolute",
-          bottom: "3%",
+          bottom: "43%",
           left: 0,
           right: 0,
-          height: "83%",
+          height: "auto",
           marginHorizontal: SIZES.padding * 3,
-          padding: SIZES.padding * 2,
-          paddingHorizontal: SIZES.padding * 3,
+          padding: SIZES.padding * 3,
           borderRadius: SIZES.radius,
           backgroundColor: COLORS.white,
         }}
@@ -74,7 +99,7 @@ const Payment = ({ navigation }) => {
             ...FONTS.body2,
           }}
         >
-          Enter Phone Number
+          Enter Recipient Phone No.
         </Text>
         <TextInput
           style={{
@@ -85,6 +110,7 @@ const Payment = ({ navigation }) => {
             paddingLeft: SIZES.padding,
           }}
           keyboardType="numeric"
+          returnKeyType="done"
           placeholder="123-456-7890"
           placeholderTextColor={COLORS.black}
           selectionColor={COLORS.black}
@@ -112,29 +138,34 @@ const Payment = ({ navigation }) => {
           }}
           keyboardType="numeric"
           placeholder="$0.00"
+          returnKeyType="done"
           placeholderTextColor={COLORS.black}
           selectionColor={COLORS.black}
           textAlign="left"
           value={amount}
           onChangeText={(text) => setAmount(text.replace(/[^0-9]/g, ""))}
         />
-
-        <TouchableOpacity
+        <View style={{
+          flex: 1,
+        }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{
+            marginTop: SIZES.padding * 2,
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
-            padding: 15,
+            height: 50,
             borderRadius: 30,
             backgroundColor: COLORS.secondary,
-            position: "absolute",
-            bottom: "4%",
-            left: "10%",
           }}
-          onPress={() => console.log(amount)}
         >
-          <Text style={{ ...FONTS.body2, color: "white" }}>Send</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={onComposeSms}>
+            <Text style={{ ...FONTS.body2, color: "white" }}>Send</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+        </View>
+        
       </View>
     );
   }

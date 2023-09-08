@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Image,
   TextInput,
   Modal,
   FlatList,
@@ -12,11 +11,12 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
+import { Image } from "expo-image"
 import { LinearGradient } from "expo-linear-gradient";
 
 import { COLORS, SIZES, FONTS } from "../constants/theme";
 import icons from "../constants/icons";
-import logo from "../assets/logo.png";
+import images from "../constants/images";
 
 const SignUp = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -65,7 +65,7 @@ const SignUp = ({ navigation }) => {
       >
         <Image
           source={icons.back}
-          resizeMode="contain"
+          contentFit="contain"
           style={{
             width: 20,
             height: 20,
@@ -90,17 +90,17 @@ const SignUp = ({ navigation }) => {
     return (
       <View
         style={{
-          marginTop: SIZES.padding * 5,
-          height: 100,
+          height: "auto",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
         <Image
-          source={logo}
-          resizeMode="contain"
+          source={images.logo}
+          contentFit="cover"
           style={{
             width: "60%",
+            height: "60%",
           }}
         />
       </View>
@@ -111,18 +111,16 @@ const SignUp = ({ navigation }) => {
     return (
       <View
         style={{
-          marginTop: SIZES.padding * 3,
           marginHorizontal: SIZES.padding * 3,
         }}
       >
         {/* Full Name */}
-        <View style={{ marginTop: SIZES.padding * 3 }}>
+        <View style={{ }}>
           <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>
             Full Name
           </Text>
           <TextInput
             style={{
-              marginVertical: SIZES.padding,
               borderBottomColor: COLORS.white,
               borderBottomWidth: 1,
               height: 40,
@@ -170,7 +168,7 @@ const SignUp = ({ navigation }) => {
               <View style={{ justifyContent: "center", marginLeft: 5 }}>
                 <Image
                   source={{ uri: selectedArea?.flag }}
-                  resizeMode="contain"
+                  contentFit="contain"
                   style={{
                     width: 30,
                     height: 30,

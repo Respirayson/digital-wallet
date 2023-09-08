@@ -3,15 +3,11 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
-  ImageBackground,
 } from "react-native";
+import { Image, ImageBackground } from "expo-image"
 import { COLORS, SIZES, FONTS } from "../constants/theme";
 import icons from "../constants/icons";
-import logo from "../assets/logo.png";
-import sample from "../assets/sample.png";
-import wallet from "../assets/wallet.jpg";
-import { Ionicons } from "@expo/vector-icons";
+import images from "../constants/images";
 
 const MyQR = ({ navigation }) => {
   const [date, setDate] = useState(
@@ -36,7 +32,7 @@ const MyQR = ({ navigation }) => {
       >
         <Image
           source={icons.back}
-          resizeMode="contain"
+          contentFit="contain"
           style={{
             width: 25,
             height: 25,
@@ -71,10 +67,10 @@ const MyQR = ({ navigation }) => {
       <View
         style={{
           position: "absolute",
-          bottom: "3%",
+          top: "15%",
           left: 0,
           right: 0,
-          height: "88%",
+          height: "auto",
           marginHorizontal: SIZES.padding * 3,
           padding: SIZES.padding * 2,
           paddingHorizontal: SIZES.padding * 3,
@@ -95,7 +91,7 @@ const MyQR = ({ navigation }) => {
               borderRadius: 10,
               backgroundColor: COLORS.lightRed,
             }}
-            source={logo}
+            source={images.logo}
           ></Image>
           <View
             style={{
@@ -124,7 +120,7 @@ const MyQR = ({ navigation }) => {
               width: 300,
               borderRadius: SIZES.radius / 2,
             }}
-            source={sample}
+            source={images.sample}
           ></Image>
           <ImageBackground
             style={{
@@ -132,7 +128,7 @@ const MyQR = ({ navigation }) => {
               marginTop: 15,
             }}
             imageStyle={{ borderRadius: 20 }}
-            source={wallet}
+            source={images.wallet}
           >
             <View
               style={{
