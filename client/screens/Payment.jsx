@@ -1,28 +1,49 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { SIZES, COLORS, FONTS, TWILIO_NUMBER } from "../constants/theme";
 import { Image } from "expo-image";
 import icons from "../constants/icons";
 import * as SMS from "expo-sms";
+import { Buffer } from "@craftzdog/react-native-buffer";
 
 const Payment = ({ navigation }) => {
   const [amount, setAmount] = useState("");
+  const [balance, setBalance] = useState(0); // TODO: Replace with function that connects to stripe
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isSmsAvailable, setIsSmsAvailable] = useState(false); // TODO: Replace with function that checks if SMS is available
+  const [passcode, setPasscode] = useState("");
+  const [isSmsAvailable, setIsSmsAvailable] = useState(false); // check if SMS is available on device
+
+  // Encoding
+  function encodePasscode(passcode) {
+    return Buffer.from(passcode).toString("base64");
+  }
+
+  // Decoding
+  function decodePasscode(encodedPasscode) {
+    return Buffer.from(encodedPasscode, "base64").toString("utf8");
+  }
+
+  useEffect(() => {
+    // FOR TESTING PURPOSES ONLY
+    const passcode = "999";
+    const encodedPasscode = encodePasscode(passcode);
+    console.log(encodedPasscode);
+
+    const decodedPasscode = decodePasscode(encodedPasscode);
+    console.log(decodedPasscode);
+  }, []);
 
   const onComposeSms = useCallback(async () => {
-
     if (!phoneNumber || !amount) {
       alert("Please enter a valid phone number and amount");
       return;
     }
-    
+
+    if (amount > balance) {
+      alert("Insufficient funds");
+      return;
+    }
+
     if (isSmsAvailable) {
       console.log("Successfully opened SMS app");
       await SMS.sendSMSAsync(TWILIO_NUMBER, `Send ${phoneNumber} ${amount}`);
@@ -92,7 +113,9 @@ const Payment = ({ navigation }) => {
           right: 0,
           height: "auto",
           marginHorizontal: SIZES.padding * 3,
-          padding: SIZES.padding * 3,
+          paddingHorizontal: SIZES.padding * 3,
+          paddingVertical: SIZES.padding * 1.5,
+          paddingBottom: SIZES.padding * 2,
           borderRadius: SIZES.radius,
           backgroundColor: COLORS.white,
         }}
@@ -100,7 +123,6 @@ const Payment = ({ navigation }) => {
         <Text
           style={{
             marginLeft: SIZES.padding,
-            marginBottom: SIZES.padding,
             color: COLORS.black,
             ...FONTS.body2,
           }}
@@ -124,16 +146,33 @@ const Payment = ({ navigation }) => {
           value={phoneNumber}
           onChangeText={(text) => setPhoneNumber(text)}
         />
-        <Text
-          style={{
-            marginLeft: SIZES.padding,
-            marginVertical: SIZES.padding,
-            color: COLORS.black,
-            ...FONTS.body2,
-          }}
-        >
-          Enter Amount
-        </Text>
+        <View style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+        }}>
+          <Text
+            style={{
+              marginLeft: SIZES.padding,
+              marginTop: SIZES.padding / 2,
+              color: COLORS.black,
+              ...FONTS.body2,
+            }}
+          >
+            Enter Amount
+          </Text>
+          <Text
+            style={{
+              marginTop: SIZES.padding,
+              marginRight: SIZES.padding,
+              color: COLORS.black,
+              ...FONTS.body5,
+            }}
+          >
+            Balance: ${balance}
+          </Text>
+        </View>
+
         <TextInput
           style={{
             height: 40,
@@ -151,6 +190,32 @@ const Payment = ({ navigation }) => {
           value={amount}
           onChangeText={(text) => setAmount(text)}
         />
+        <Text
+          style={{
+            marginLeft: SIZES.padding,
+            marginTop: SIZES.padding / 2,
+            color: COLORS.black,
+            ...FONTS.body2,
+          }}
+        >
+          Enter Passcode
+        </Text>
+        <TextInput
+          style={{
+            height: 40,
+            borderColor: "gray",
+            borderWidth: 1,
+            borderRadius: 10,
+            paddingLeft: SIZES.padding,
+          }}
+          keyboardType="default"
+          returnKeyType="done"
+          placeholderTextColor={COLORS.black}
+          selectionColor={COLORS.black}
+          textAlign="left"
+          value={passcode}
+          onChangeText={(text) => setPasscode(text)}
+        />
         <View
           style={{
             flex: 1,
@@ -159,7 +224,7 @@ const Payment = ({ navigation }) => {
           <TouchableOpacity onPress={onComposeSms}>
             <View
               style={{
-                marginTop: SIZES.padding * 2,
+                marginTop: SIZES.padding,
                 alignItems: "center",
                 justifyContent: "center",
                 width: "100%",

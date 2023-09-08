@@ -6,6 +6,7 @@ import Welcome from "./Welcome";
 import MyQR from "./MyQR";
 import TopUp from "./TopUp";
 import Payment from "./Payment";
+import Withdraw from "./Withdraw";
 
 export {
     Home,
@@ -15,5 +16,6 @@ export {
     Welcome,
     MyQR,
     TopUp,
-    Payment
+    Payment,
+    Withdraw
 }

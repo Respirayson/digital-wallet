@@ -94,11 +94,11 @@ const Scan = ({ navigation }) => {
       >
         <Image
           source={focus}
-          contentFit="stretch"
+          contentFit="contain"
           style={{
             marginTop: "-55%",
-            width: 200,
-            height: 300,
+            width: 250,
+            height: 350,
           }}
         />
       </View>

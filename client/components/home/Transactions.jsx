@@ -113,7 +113,7 @@ const Transactions = ({ transactions }) => {
         }}
       >
         <Text style={{ ...FONTS.h3 }}>Transactions</Text>
-        <Text style={{ ...FONTS.body4, color: COLORS.secondary }}>Recent</Text>
+        <Text style={{ ...FONTS.body4, color: COLORS.secondaryBlack }}>Recent</Text>
       </View>
       <FlatList
         data={transactions}

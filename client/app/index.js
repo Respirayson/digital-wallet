@@ -1,7 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Tabs from "../navigation/Tabs";
-import { MyQR, SignUp, TopUp, Welcome, Payment } from "../screens";
+import { MyQR, SignUp, TopUp, Welcome, Payment, Withdraw } from "../screens";
+
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,8 @@ const App = () => {
       <Stack.Screen name="TopUp" component={TopUp} />
 
       <Stack.Screen name="Payment" component={Payment} />
+
+      <Stack.Screen name="Withdraw" component={Withdraw} />
 
     </Stack.Navigator>
   );

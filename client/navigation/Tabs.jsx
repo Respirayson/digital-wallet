@@ -107,7 +107,7 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => (
             <Image
               source={icons.more}
-              resizeMode="contain"
+              contentFit="contain"
               style={{
                 width: 25,
                 height: 25,
@@ -125,7 +125,7 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => (
             <Image
               source={icons.scan}
-              resizeMode="contain"
+              contentFit="contain"
               style={{
                 width: 25,
                 height: 25,
@@ -143,7 +143,7 @@ const Tabs = () => {
           tabBarIcon: ({ focused }) => (
             <Image
               source={icons.user}
-              resizeMode="contain"
+              contentFit="contain"
               style={{
                 width: 25,
                 height: 25,

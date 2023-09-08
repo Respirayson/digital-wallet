@@ -1,67 +1,67 @@
-import icons from "./icons"
-import { COLORS } from "./theme"
+import icons from "./icons";
+import { COLORS } from "./theme";
 
 export const featuresData = [
-    {
-        id: 1,
-        icon: icons.reload,
-        color: COLORS.purple,
-        backgroundColor: COLORS.lightpurple,
-        description: "Top Up",
-        navigation: "TopUp"
-    },
-    {
-        id: 2,
-        icon: icons.send,
-        color: COLORS.yellow,
-        backgroundColor: COLORS.lightyellow,
-        description: "Pay via SMS",
-        navigation: "Payment"
-    },
-    {
-        id: 3,
-        icon: icons.wallet,
-        color: COLORS.red,
-        backgroundColor: COLORS.lightRed,
-        description: "History",
-        navigation: "History"
-    },
-    {
-        id: 4,
-        icon: icons.bill,
-        color: COLORS.green,
-        backgroundColor: COLORS.lightGray,
-        description: "My QR",
-        navigation: "MyQR"
-    }
-]
+  {
+    id: 1,
+    icon: icons.reload,
+    color: COLORS.purple,
+    backgroundColor: COLORS.lightpurple,
+    description: "Top Up",
+    navigation: "TopUp",
+  },
+  {
+    id: 2,
+    icon: icons.wallet,
+    color: COLORS.red,
+    backgroundColor: COLORS.lightRed,
+    description: "Withdraw Funds",
+    navigation: "Withdraw",
+  },
+  {
+    id: 3,
+    icon: icons.send,
+    color: COLORS.yellow,
+    backgroundColor: COLORS.lightyellow,
+    description: "Pay via SMS",
+    navigation: "Payment",
+  },
+  {
+    id: 4,
+    icon: icons.bill,
+    color: COLORS.green,
+    backgroundColor: COLORS.lightGray,
+    description: "My QR",
+    navigation: "MyQR",
+  },
+];
 
 export const transactionData = [
-    {
-        id: 1,
-        type: "Transfer",
-        color: COLORS.red,
-        description: "Transfer to 6281234567890",
-        amount: "-$500.00",
-        date: "14 Sep 2021",
-        icon: "logo-usd",
-    },
-    {
-        id: 2,
-        type: "Transfer",
-        color: COLORS.red,
-        description: "Transfer to 6281234567890",
-        amount: "-$500.00",
-        date: "14 Sep 2021",
-        icon: "logo-usd",
-    },
-    {
-        id: 3,
-        type: "Top Up",
-        color: COLORS.green,
-        description: "Top Up from Bank",
-        amount: "+$500.00",
-        date: "14 Sep 2023",
-        icon: "cart-sharp"
-    }
-]
+  {
+    id: 1,
+    type: "Transfer",
+    color: COLORS.red,
+    description: "Transfer to 6281234567890",
+    amount: "-$500.00",
+    date: "14 Sep 2021",
+    icon: "logo-usd",
+  },
+  {
+    id: 2,
+    type: "Transfer",
+    color: COLORS.red,
+    description: "Transfer to 6281234567890",
+    amount: "-$500.00",
+    date: "14 Sep 2021",
+    icon: "logo-usd",
+  },
+  {
+    id: 3,
+    type: "Top Up",
+    color: COLORS.green,
+    description: "Top Up from Bank",
+    amount: "+$500.00",
+    date: "14 Sep 2023",
+    icon: "cart-sharp",
+  },
+];

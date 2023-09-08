@@ -4,14 +4,14 @@ import { Image } from "expo-image";
 import { SIZES, COLORS, FONTS } from "../constants/theme";
 import icons from "../constants/icons";
 
-const TopUp = ({ navigation }) => {
+const Withdraw = ({ navigation }) => {
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
 
   /**
-   * TODO: IMPLEMENT THE TOP UP FUNCTIONALITY
+   * TODO: IMPLEMENT THE WITHDRAW FUNCTIONALITY
    */
-  const topUp = () => {
+  const withdraw = () => {
     console.log(amount);
   }
 
@@ -49,9 +49,9 @@ const TopUp = ({ navigation }) => {
         }}
       >
         <View style={{ flex: 1 }}>
-          <Text style={{ color: COLORS.white, ...FONTS.body1 }}>Add Money</Text>
+          <Text style={{ color: COLORS.white, ...FONTS.body1 }}>Withdraw</Text>
           <Text style={{ ...FONTS.body5, color: COLORS.white }}>
-            Fund your wallet with money
+            Transfer funds to your account
           </Text>
         </View>
       </View>
@@ -136,13 +136,13 @@ const TopUp = ({ navigation }) => {
             backgroundColor: COLORS.secondary,
             marginTop: SIZES.padding * 2,
           }}
-          onPress={topUp}
+          onPress={withdraw}
         >
-          <Text style={{ ...FONTS.body2, color: "white" }}>Top Up</Text>
+          <Text style={{ ...FONTS.body2, color: "white" }}>Withdraw</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default TopUp;
+export default Withdraw;
