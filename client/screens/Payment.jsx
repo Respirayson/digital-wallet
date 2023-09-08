@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { SIZES, COLORS, FONTS, TWILIO_NUMBER } from "../constants/theme";
-import { Image } from "expo-image"
+import { Image } from "expo-image";
 import icons from "../constants/icons";
 import * as SMS from "expo-sms";
 
@@ -17,11 +17,17 @@ const Payment = ({ navigation }) => {
   const [isSmsAvailable, setIsSmsAvailable] = useState(false); // TODO: Replace with function that checks if SMS is available
 
   const onComposeSms = useCallback(async () => {
-    if (isSmsAvailable) {
-      console.log("going for it!");
-      await SMS.sendSMSAsync(TWILIO_NUMBER, "This is my precomposed message!");
+
+    if (!phoneNumber || !amount) {
+      alert("Please enter a valid phone number and amount");
+      return;
     }
-  }, [isSmsAvailable]);
+    
+    if (isSmsAvailable) {
+      console.log("Successfully opened SMS app");
+      await SMS.sendSMSAsync(TWILIO_NUMBER, `Send ${phoneNumber} ${amount}`);
+    }
+  }, [isSmsAvailable, phoneNumber, amount]);
 
   useEffect(() => {
     SMS.isAvailableAsync().then((isAvailable) =>
@@ -43,7 +49,7 @@ const Payment = ({ navigation }) => {
       >
         <Image
           source={icons.back}
-          resizeMode="contain"
+          contentFit="contain"
           style={{
             width: 25,
             height: 25,
@@ -116,7 +122,7 @@ const Payment = ({ navigation }) => {
           selectionColor={COLORS.black}
           textAlign="left"
           value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(text.replace(/[^0-9]/g, ""))}
+          onChangeText={(text) => setPhoneNumber(text)}
         />
         <Text
           style={{
@@ -143,29 +149,30 @@ const Payment = ({ navigation }) => {
           selectionColor={COLORS.black}
           textAlign="left"
           value={amount}
-          onChangeText={(text) => setAmount(text.replace(/[^0-9]/g, ""))}
+          onChangeText={(text) => setAmount(text)}
         />
-        <View style={{
-          flex: 1,
-        }}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        <View
           style={{
-            marginTop: SIZES.padding * 2,
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: 50,
-            borderRadius: 30,
-            backgroundColor: COLORS.secondary,
+            flex: 1,
           }}
         >
           <TouchableOpacity onPress={onComposeSms}>
-            <Text style={{ ...FONTS.body2, color: "white" }}>Send</Text>
+            <View
+              style={{
+                marginTop: SIZES.padding * 2,
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: 50,
+                borderRadius: 30,
+                backgroundColor: COLORS.secondary,
+                zIndex: 1,
+              }}
+            >
+              <Text style={{ ...FONTS.body2, color: "white" }}>Send</Text>
+            </View>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
         </View>
-        
       </View>
     );
   }
