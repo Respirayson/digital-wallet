@@ -1,15 +1,11 @@
-import database from '../database/Database';
+import realmInstance from '../database/schema';
 import axios from 'axios';
 
 const SERVER_URL = 'https://your-central-server-url.com';
 
 async function synchronize() {
-  const unsynchronizedTransactions = await database.collections
-    .get('transactions')
-    .query(
-      Q.where('isSynchronized', false)
-    )
-    .fetchSortedBy('createdAt'); // Sorting ensures older transactions are processed first
+  // Get the unsynchronized transactions
+  const unsynchronizedTransactions = realmInstance.objects('Transaction').filtered('isSynchronized == false').sorted('createdAt');
 
   for (let transaction of unsynchronizedTransactions) {
     try {
@@ -19,21 +15,15 @@ async function synchronize() {
         const { success, updatedBalance, error } = response.data;
         
         if (success) {
-          const wallet = await database.collections
-            .get('wallets')
-            .find(transaction.senderId); // Assuming the sender is the current user
+          // Assuming the sender is the current user
+          const wallet = realmInstance.objects('User').filtered('id == $0', transaction.buyerId)[0];
 
-          await database.action(async () => {
-            await wallet.update(w => {
-              w.balance = updatedBalance; // Update to server's balance to ensure consistency
-            });
-
-            await transaction.update(tran => {
-              tran.isSynchronized = true;
-            });
+          // Begin write transaction
+          realmInstance.write(() => {
+            wallet.balance = updatedBalance; // Update to server's balance to ensure consistency
+            transaction.isSynchronized = true;
           });
         } else {
-          // Handle error based on the server's response
           console.error('Error from server:', error);
           // You might decide to mark the transaction with an error state or notify the user
           // Additionally, you might decide to halt synchronization and ask user intervention
@@ -42,12 +32,10 @@ async function synchronize() {
       }
     } catch (error) {
       console.error('Error synchronizing transaction:', error);
-      // Again, handle the error: log it, notify the user, etc.
     }
   }
 
   // Separate logic to sync the entire wallet balance 
-  // This ensures that the wallet is always in sync with the server, even if there were other changes
   try {
     const walletResponse = await axios.get(`${SERVER_URL}/get-wallet-balance`, {
       params: {
@@ -57,14 +45,13 @@ async function synchronize() {
 
     if (walletResponse.status === 200) {
       const { balance } = walletResponse.data;
-      const wallet = await database.collections
-        .get('wallets')
-        .find('currentUserId'); // replace with actual user ID
 
-      await database.action(async () => {
-        await wallet.update(w => {
-          w.balance = balance;
-        });
+      // Assuming the current user's ID is 'currentUserId'
+      const wallet = realmInstance.objects('User').filtered('id == $0', 'currentUserId')[0];
+
+      // Begin write transaction
+      realmInstance.write(() => {
+        wallet.balance = balance;
       });
     }
   } catch (error) {

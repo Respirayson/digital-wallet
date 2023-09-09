@@ -32,7 +32,11 @@ Transaction.schema = {
     dynamicPw: 'string?',
     number: 'string',
     balance: 'float',
+    expirationDate: 'date',
+    state: 'string',
   },
 };
 
-export default new Realm({ schema: [User, Transaction] });
+const realmInstance = new Realm({ schema: [User, Transaction] });
+
+export default realmInstance;
