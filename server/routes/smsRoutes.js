@@ -31,7 +31,7 @@ smsRouter.post('/sms', async (req, res) => {
             
         // var bytes  = CryptoJS.AES.decrypt(encrypted_dynamic_pw, process.env.ENCRYPT_SECRET_KEY);
         var originalDynamicPw = decodePasscode(encrypted_dynamic_pw)
-        var tempSender = await prisma.user.findFirst({
+        var tempSender = await prisma.User.findFirst({
             where: {balance: {gte: parseFloat(amt)}, staticPw: static_pw, phoneNumber: senderNumber }
         })
         console.log(tempSender)
