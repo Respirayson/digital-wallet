@@ -55,7 +55,6 @@ smsRouter.post('/sms', async (req, res) => {
                 prisma.User.update({
                     where: {
                         phoneNumber: senderNumber, 
-                        dynamicPw: String(originalDynamicPw), 
                         id: sender.id
                     }, 
                     data: {
@@ -76,9 +75,9 @@ smsRouter.post('/sms', async (req, res) => {
                 prisma.Transaction.create({
                     data: {
                         buyerId: sender.id, 
-                        seller: receiver,
+                        // seller: receiver,
                         sellerId: receiver.id, 
-                        buyer: sender, 
+                        // buyer: sender, 
                         amount: parseFloat(amt), 
                         description: "", 
                         date: new Date().toISOString(), 
