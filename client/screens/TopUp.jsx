@@ -25,7 +25,7 @@ const TopUp = ({ navigation }) => {
       }
 
       const response = await fetch(
-        "http://10.0.2.2:8080/api/v1/wallet/paymentIntent",
+        "https://digital-wallet-fd26a3afcbce.herokuapp.com/api/v1/wallet/paymentIntent",
         {
           method: "POST",
           headers: {
