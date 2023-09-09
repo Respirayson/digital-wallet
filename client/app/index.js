@@ -7,6 +7,19 @@ import { MyQR, SignUp, TopUp, Welcome, Payment, Withdraw } from "../screens";
 const Stack = createStackNavigator();
 
 const App = () => {
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      if (state.isConnected && state.isInternetReachable) {
+        synchronize();
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  
   return (
     <Stack.Navigator
       screenOptions={{
