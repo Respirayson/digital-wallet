@@ -6,7 +6,7 @@ import cors from 'cors';
 import userRouter from './routes/userRoutes.js';
 import transactionRoutes from './routes/transactionRoutes.js';
 import walletRoutes from './routes/walletRoutes.js';
-import userTransactionRouter from '../routes/userTransactionRoutes.js'
+import userTransactionRouter from './routes/userTransactionRoutes.js'
 
 dotenv.config();
 
