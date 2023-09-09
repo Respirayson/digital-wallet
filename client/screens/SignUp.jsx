@@ -11,24 +11,26 @@ import {
   ScrollView,
   Platform,
 } from "react-native";
-import { Image } from "expo-image"
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { COLORS, SIZES, FONTS } from "../constants/theme";
 import icons from "../constants/icons";
 import images from "../constants/images";
 
+import * as WebBrowser from "expo-web-browser";
+
 const SignUp = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [browser, setBrowser] = useState(null);
 
   const [areas, setAreas] = useState([]);
   const [selectedArea, setSelectedArea] = useState(null);
   const [isModelVisible, setIsModelVisible] = useState(false);
 
-  const [fullName, setFullName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all?fields=name,flags,cca3,idd")
@@ -135,10 +137,12 @@ const SignUp = ({ navigation }) => {
       <View
         style={{
           marginHorizontal: SIZES.padding * 3,
+          marginTop: SIZES.padding * 2,
+          zIndex: -10,
         }}
       >
         {/* Full Name */}
-        <View style={{ }}>
+        <View style={{}}>
           <Text style={{ color: COLORS.lightGreen, ...FONTS.body3 }}>
             Full Name
           </Text>
@@ -282,7 +286,28 @@ const SignUp = ({ navigation }) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={handleSubmit}
+          onPress={async () => {
+            // Handle the registration
+            handleSubmit();
+  
+            // Handle the Stripe logic
+            const res = await fetch("http://10.0.2.2:8080/api/v1/wallet", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                link: "http://dashboard.stripe.com",
+              }),
+            });
+            const data = await res.json();
+  
+            const result = await WebBrowser.openBrowserAsync(data.url);
+  
+            setBrowser(result);
+  
+            navigation.navigate("Tabs"); // Navigate after both operations
+          }}
         >
           <Text style={{ color: COLORS.white, ...FONTS.h3 }}>Continue</Text>
         </TouchableOpacity>
@@ -349,13 +374,13 @@ const SignUp = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : null}
       style={{ flex: 1 }}
     >
+      <Text>{browser && JSON.stringify(browser)}</Text>
       <LinearGradient
         colors={[COLORS.secondaryBlack, "#1d3360"]}
-        style={{ flex: 1 }}
+        style={{ flex: 1, zIndex: -10, height: "100%", width: "100%" }}
       >
-        <ScrollView>
+        <ScrollView style={{ height: "auto" }}>
           {renderHeader()}
-          {renderLogo()}
           {renderForm()}
           {renderButton()}
         </ScrollView>

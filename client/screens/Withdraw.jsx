@@ -11,9 +11,29 @@ const Withdraw = ({ navigation }) => {
   /**
    * TODO: IMPLEMENT THE WITHDRAW FUNCTIONALITY
    */
-  const withdraw = () => {
-    console.log(amount);
-  }
+  const withdraw = async () => {
+    const accNumber = "acct_1NoPJDFRaaU652pz";
+
+    const res = await fetch(
+      "http://localhost:8080/api/v1/transactions/transfer",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: amount,
+          destination: accNumber,
+        }),
+      }
+    );
+    const data = await res.json();
+
+    if (data.error) {
+      console.log(data.error);
+    }
+    navigation.navigate("Tabs");
+  };
 
   function renderNavigator() {
     return (
@@ -82,30 +102,34 @@ const Withdraw = ({ navigation }) => {
           padding: SIZES.padding * 3,
         }}
       >
-      <View style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: "100%",
-      }}>
-      <Text
+        <View
           style={{
-            paddingLeft: SIZES.padding,
-            color: COLORS.black,
-            ...FONTS.body2,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "100%",
           }}
         >
-          Enter Amount
-        </Text>
-        <Text style={{
-            marginTop: SIZES.padding / 2,
-            paddingRight: SIZES.padding,            
-            color: COLORS.black,
-            ...FONTS.body5,
-        }}>
-          Balance: ${balance}
-        </Text>
-      </View>
-        
+          <Text
+            style={{
+              paddingLeft: SIZES.padding,
+              color: COLORS.black,
+              ...FONTS.body2,
+            }}
+          >
+            Enter Amount
+          </Text>
+          <Text
+            style={{
+              marginTop: SIZES.padding / 2,
+              paddingRight: SIZES.padding,
+              color: COLORS.black,
+              ...FONTS.body5,
+            }}
+          >
+            Balance: ${balance}
+          </Text>
+        </View>
+
         <TextInput
           style={{
             height: 60,
