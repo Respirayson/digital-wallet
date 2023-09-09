@@ -1,5 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
+import { useEffect } from 'react';
+import NetInfo from "@react-native-community/netinfo";
+import { synchronize } from './synchronization/syncService';
 import Tabs from "../navigation/Tabs";
 import { MyQR, SignUp, TopUp, Welcome, Payment, Withdraw } from "../screens";
 
