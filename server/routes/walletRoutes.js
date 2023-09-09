@@ -83,18 +83,6 @@ walletRouter.post("/", async (req, res) => {
       },
     });
 
-    await updatedAccount.external_accounts.create({
-      external_account: {
-        object: "bank_account",
-        country: "SG",
-        currency: "sgd",
-        account_holder_name: "John Doe",
-        account_holder_type: "individual",
-        account_number: "000123456",
-        routing_number: "1100-000",
-      },
-    });
-
     const accountLink = await stp.accountLinks.create({
       account: updatedAccount.id,
       refresh_url: link,
