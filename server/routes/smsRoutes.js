@@ -37,23 +37,22 @@ smsRouter.post('/sms', async (req, res) => {
         console.log(tempSender)
         var sender
         if (tempSender.dynamicPw != "") {
-            sender = await prisma.user.findFirst({
+            sender = await prisma.User.findFirst({
                 where: {balance: {gte: parseFloat(amt)}, staticPw: static_pw, phoneNumber: senderNumber, dynamicPw: originalDynamicPw }
             })
         } else {
             sender = tempSender;
         }
 
-
-        const receiver = await prisma.user.findFirst({
+        const receiver = await prisma.User.findFirst({
             where: { phoneNumber: recipientNum }
         })
-
         const nonce = Math.random() * 100
         const encryptedNewMsg = encodePasscode([nonce])
+
         if (receiver && sender) {
             await prisma.$transaction([
-                prisma.user.update({
+                prisma.User.update({
                     where: {
                         phoneNumber: senderNumber, 
                         dynamicPw: String(originalDynamicPw), 
@@ -63,25 +62,28 @@ smsRouter.post('/sms', async (req, res) => {
                         balance: {
                             decrement: parseFloat(amt)
                         }, 
-                        dynamicPw: String(nonce)
+                        dynamicPw: String(nonce),
                     }
                 }), 
     
-                prisma.user.update({
+                prisma.User.update({
                     where: { phoneNumber: recipientNum, id: receiver.id }, 
                     data: { balance: {
                         increment: parseFloat(amt)
                     } }
                 }), 
     
-                prisma.transaction.create({
+                prisma.Transaction.create({
                     data: {
                         buyerId: sender.id, 
+                        seller: receiver,
                         sellerId: receiver.id, 
+                        buyer: sender, 
                         amount: parseFloat(amt), 
                         description: "", 
-                        buyer: sender, 
-                        seller: receiver
+                        date: new Date().toISOString(), 
+                        expirationTime: new Date().toISOString(), 
+                        state: "completed"
                     }
                 })
             ]).then(
@@ -123,7 +125,7 @@ smsRouter.post('/sms', async (req, res) => {
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
     } else if (textData.toString() == "resendOTP") {
-        const sender = await prisma.user.findFirst({
+        const sender = await prisma.User.findFirst({
             where: { phoneNumber: senderNumber }
         })
         const encryptedNewMsg = encodePasscode([sender.dynamicPw])
@@ -138,5 +140,6 @@ smsRouter.post('/sms', async (req, res) => {
 
     }
 });
+
 
 export default smsRouter
