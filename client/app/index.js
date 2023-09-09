@@ -15,7 +15,7 @@ const App = () => {
       initialRouteName="Welcome"
     >
       <Stack.Screen name="Welcome" component={Welcome} />
-      
+
       <Stack.Screen name="SignUp" component={SignUp} />
 
       <Stack.Screen name="MyQR" component={MyQR} />
@@ -27,7 +27,6 @@ const App = () => {
       <Stack.Screen name="Payment" component={Payment} />
 
       <Stack.Screen name="Withdraw" component={Withdraw} />
-
     </Stack.Navigator>
   );
 };
