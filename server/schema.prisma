@@ -12,7 +12,10 @@ model User {
   name          String
   phoneNumber   String?
   staticPw      String    
-  dynamicPw     String?  
+  dynamicPw     String?
+  balance       Float
+  accNumber     Int? 
+  email         String? 
   transactionsAsBuyer Transaction[] @relation("BuyerTransactions")
   transactionsAsSeller Transaction[] @relation("SellerTransactions")
 }
@@ -26,8 +29,6 @@ model Transaction {
   amount      Float
   description String
   date        DateTime
-  staticPw      String    
-  dynamicPw     String?   
-  number        String
-  balance       Float
+  expirationTime DateTime
+  state        String
 }
