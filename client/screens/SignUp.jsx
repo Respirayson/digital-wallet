@@ -52,6 +52,29 @@ const SignUp = ({ navigation }) => {
       });
   }, []);
 
+  const handleSubmit = async () => {
+    try {
+      const userData = {
+        fullName,
+        phoneNumber: `${selectedArea?.callingCode}${phoneNumber}`,
+        password
+      };
+
+      const response = await axios.post(`${SERVER_URL}/register`, userData);
+
+      if (response.data.success) {
+        // Successful registration
+        console.log('User registered successfully');
+        navigation.navigate("Tabs"); // Navigate to your desired screen after registration
+      } else {
+        // Handle errors from the server
+        console.log('Registration error:', response.data.error);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
   function renderHeader() {
     return (
       <TouchableOpacity
@@ -259,10 +282,7 @@ const SignUp = ({ navigation }) => {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => {
-            console.log(fullName, phoneNumber, password);
-            navigation.navigate("Tabs")
-            }} // TODO: Replace with actual authentication stuff
+          onPress={handleSubmit}
         >
           <Text style={{ color: COLORS.white, ...FONTS.h3 }}>Continue</Text>
         </TouchableOpacity>
