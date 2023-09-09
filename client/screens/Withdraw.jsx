@@ -15,7 +15,7 @@ const Withdraw = ({ navigation }) => {
     const accNumber = "acct_1NoPJDFRaaU652pz";
 
     const res = await fetch(
-      "https://digital-wallet-fd26a3afcbce.herokuapp.com/api/v1/transactions/transfer",
+      "https://transact-pals.onrender.com/api/v1/transactions/transfer",
       {
         method: "POST",
         headers: {

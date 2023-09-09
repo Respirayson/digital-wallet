@@ -264,7 +264,7 @@ const SignUp = ({ navigation }) => {
             justifyContent: "center",
           }}
           onPress={async () => {
-            const res = await fetch("https://digital-wallet-fd26a3afcbce.herokuapp.com/api/v1/wallet", {
+            const res = await fetch("https://transact-pals.onrender.com/api/v1/wallet", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

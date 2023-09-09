@@ -25,7 +25,7 @@ const TopUp = ({ navigation }) => {
       }
 
       const response = await fetch(
-        "https://digital-wallet-fd26a3afcbce.herokuapp.com/api/v1/wallet/paymentIntent",
+        "https://transact-pals.onrender.com/api/v1/wallet/paymentIntent",
         {
           method: "POST",
           headers: {
