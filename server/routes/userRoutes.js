@@ -1,12 +1,12 @@
-import { registerUser, listUsers} from './service/userService.js';
-import { getSpecificUser } from './models/User.js';
-import { getBuyerTransactionPerUser, getSellerTransactionPerUser }  from './models/Transaction.js';
+import { registerUser, listUsers} from '../service/userService.js';
+import { getSpecificUser } from '../models/User.js';
+import { getBuyerTransactionPerUser, getSellerTransactionPerUser }  from '../models/Transaction.js';
 import express from "express";
 
 const userRouter = express.Router();
 
 // create a user
-app.post('/', async (req, res) => {
+userRouter.post('/', async (req, res) => {
     try {
         const newUser = await registerUser(req.body);
         res.json(newUser);
@@ -17,7 +17,7 @@ app.post('/', async (req, res) => {
 });
 
 // get all users
-app.get('/', async (req, res) => {
+userRouter.get('/', async (req, res) => {
     try {
         const users = await listUsers();
         res.json(users);
@@ -27,7 +27,7 @@ app.get('/', async (req, res) => {
 });
 
 // get specific user
-app.get('/:id', async (req, res) => {
+userRouter.get('/:id', async (req, res) => {
     const userId = parseInt(req.params.id);
 
     if (isNaN(userId) || userId <= 0) {
@@ -43,7 +43,7 @@ app.get('/:id', async (req, res) => {
 })
 
 // get specific transactions of the user 
-app.get('/:id/transactions-buyer', async (req, res) => {
+userRouter.get('/:id/transactions-buyer', async (req, res) => {
     const userId = parseInt(req.params.id);
 
     if (isNaN(userId) || userId <= 0) {
@@ -60,7 +60,7 @@ app.get('/:id/transactions-buyer', async (req, res) => {
 })
 
 // return only sell transactions to the user 
-app.get('/:id/transactions-seller', async (req, res) => {
+userRouter.get('/:id/transactions-seller', async (req, res) => {
     const userId = parseInt(req.params.id);
 
     if (isNaN(userId) || userId <= 0) {
@@ -77,7 +77,7 @@ app.get('/:id/transactions-seller', async (req, res) => {
 })
 
 // return all transactions respective to the user
-app.get('/:id/transactions', async (req, res) => {
+userRouter.get('/:id/transactions', async (req, res) => {
     const userId = parseInt(req.params.id);
 
     if (isNaN(userId) || userId <= 0) {

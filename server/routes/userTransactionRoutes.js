@@ -1,10 +1,10 @@
-import { createTransaction, getAllTransactions } from './models/Transaction.js';
+import { createTransaction, getAllTransactions } from '../models/Transaction.js';
 import express from "express";
 
 const userTransactionRouter = express.Router();
 
 // get all transactions
-app.get('/', async (req, res) => {
+userTransactionRouter.get('/', async (req, res) => {
     try {
         const transactions = await getAllTransactions();
         res.json(transactions);
@@ -15,7 +15,7 @@ app.get('/', async (req, res) => {
 })
 
 // create a transaction
-app.post('/', async (req, res) => {
+userTransactionRouter.post('/', async (req, res) => {
     try {
         const newUser = await createTransaction(req.body);
         res.json(newUser);
